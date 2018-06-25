@@ -12,6 +12,12 @@
     },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.menu"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.menu"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.menu"
     }
   },
   "dependent_plugins": {}

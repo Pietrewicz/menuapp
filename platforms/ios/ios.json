@@ -11,6 +11,22 @@
             {
               "xml": "<feature name=\"Geolocation\"><param name=\"ios-package\" value=\"CDVLocation\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"StatusBarOverlaysWebView\" value=\"true\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"StatusBarStyle\" value=\"lightcontent\" />",
+              "count": 1
             }
           ]
         }
@@ -22,6 +38,12 @@
       "PACKAGE_NAME": "com.menu"
     },
     "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.menu"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.menu"
+    },
+    "cordova-plugin-statusbar": {
       "PACKAGE_NAME": "com.menu"
     }
   },
@@ -58,10 +80,28 @@
       "clobbers": [
         "navigator.geolocation"
       ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
+    },
+    {
+      "id": "cordova-plugin-statusbar.statusbar",
+      "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+      "pluginId": "cordova-plugin-statusbar",
+      "clobbers": [
+        "window.StatusBar"
+      ]
     }
   ],
   "plugin_metadata": {
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-geolocation": "4.0.1"
+    "cordova-plugin-geolocation": "4.0.1",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "2.4.2"
   }
 }

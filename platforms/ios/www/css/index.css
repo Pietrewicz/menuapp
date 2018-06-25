@@ -1,78 +1,1125 @@
+/* glowny kolor: #54d857 */
+
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color: #f7f7ef; 
-    height: 100%;
-    margin: 0px;
-    padding: 0px; 
+  -webkit-touch-callout: none;
+  /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;
+  /* prevent webkit from resizing text to fit */
+  -webkit-user-select: none;
+  -webkit-user-select: none;
+}
+
+/*********** CZCIONKI *************/
+
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/Lato/Lato-Regular.ttf') format('ttf');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/Lato/Lato-Light.ttf') format('ttf');
+  font-style: light;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/Lato/Lato-Bold.ttf') format('ttf');
+  font-style: bold;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/Lato/Lato-Italic.ttf') format('ttf');
+  font-style: italic;
+}
+
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #212121;
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  font-style: normal;
+  position: relative;
+}
+
+body.map {
+  overflow: hidden;
+}
+
+/******************/
+
+#main-content {
+  position: relative;
+  height: 90%;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+  left: 0;
+  margin: 0;
+}
+
+#main-content .page {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+
+  opacity: 0;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+
+  transition: all .3s ease-out;
+}
+
+#main-content .page.active {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+/******** SPLASHSCREEEEN *********/
+
+#splashScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #68c566, #ff9f68);
+  z-index: 10000000;
+}
+
+#splashScreen div.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 2em;
+  text-align: center;
+}
+
+#splashScreen div.content img {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  top: -500px;
+  transition: all .5s ease-in-out;
+}
+
+/*
+#splashScreen div.content img.loaded {
+  transform: translateY(500%);
+}
+*/
+
+#splashScreen div.content span {
+  font-weight: bold;
+}
+
+#splashScreen div.content p {
+  opacity: 0;
+  transition: all .3s ease-in-out;
+}
+
+#splashScreen div.content p.loaded {
+  opacity: 1;
+}
+
+
+
+/******* loader *******/
+
+.spinner {
+  height: 20px;
+  width: 70px;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-top: 200px;
+}
+
+.spinner > div {
+  width: 18px;
+  height: 18px;
+  background-color: #fb8661;
+
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+}
+
+.spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0)
+  }
+  40% {
+    -webkit-transform: scale(1.0)
+  }
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+  }
+}
+
+/*------MAPA--------*/
+
+#main-content > div:nth-child(1) > div.map-content {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+}
+
+#map {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 10;
+  overflow: hidden;
+  z-index: 5;
+  position: relative;
+}
+
+div.map-content div.refresh {
+  width: 8vh;
+  height: 8vh;
+  padding: 5px;
+  position: absolute;
+  bottom: 4vh;
+  right: 2vh;
+  z-index: 10;
+  font-size: 20px;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #53d856;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  /*  animation: rotate 1s linear infinite;*/
+}
+
+div.map-content div.refresh svg {
+  fill: #fff;
+}
+
+div.map-content div.refresh.animating {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+h2.restName {
+  font-size: 1.5em;
+}
+
+h3.restAddr {
+  font-size: 1em;
+}
+
+/************ INFOWINDOW ***************/
+
+p.placeName {
+  color: #fb8661;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+a.addMenu,
+a.viewMenu {
+  display: block;
+  width: 100%;
+  height: 30px;
+  background: #53d856;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  border-radius: 28px;
+}
+
+/**************** BOTTOM NAVIGATION **************/
+
+div#bottom-nav {
+  position: relative;
+  z-index: 10000;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  display: flex;
+  height: 10vh;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+#bottom-nav .item {
+  width: 33.33%;
+  height: 10vh;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.item svg {
+  fill: #a4a4a4;
+  width: 10vh;
+  height: 10vh;
+  background: transparent;
+}
+
+.item.active svg {
+  fill: #53d856;
+  transition: all .2s ease;
+}
+
+/************ ogolne dla ekranow ************/
+
+div.screen-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /*  visibility: hidden;*/
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+div.screen-content:not(div.map-content) {
+  z-index: 1000;
+  position: absolute;
+}
+
+
+/******** searchbox ***********/
+
+div.searchContent {
+  position: absolute;
+  top: 10px;
+  height: 50px;
+  width: 90%;
+  background: #fff;
+  z-index: 100;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  box-shadow: 1px 0 10px #bababa;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  line-height: 50px;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+div.searchContent svg {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+  fill: #bbbdbf;
+}
+
+div.searchContent #searchBox {
+  line-height: 50px;
+  margin-bottom: 0;
+}
+
+div.searchContent svg:first-child {
+  fill: #bbbdbf;
+}
+
+div.searchContent svg:last-child {
+  fill: #a4a4a4;
+  cursor: pointer;
+  height: 0;
+  transition: all .3s ease;
+}
+
+div.searchContent svg:last-child.visible {
+  height: 20px;
+}
+
+div.searchContent input#searchBox {
+  width: 100%;
+  height: 100%;
+  border-bottom: none;
+  box-shadow: none;
+  outline: none;
+  color: #bbbdbf;
+}
+
+div.searchContent input#searchBox:focus {
+  border-bottom: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.pac-matched {
+  color: #53d856;
+}
+
+.pac-icon {
+  color: #bababa;
+}
+
+/************** NAV-GORNE *****************/
+
+.nav-gorne {
+  width: 100%;
+  display: block;
+  text-align: center;
+  height: 7vh;
+  line-height: 7vh;
+}
+
+.nav-gorne svg {
+  width: 20%;
+  height: 7vh;
+  cursor: pointer;
+  fill: #b5b5b5;
+  border-radius: 50%;
+  float: left;
+}
+
+.nav-gorne p {
+  width: 80%;
+  text-align: center;
+  color: #b5b5b5;
+  font-family: 'Varela Round', sans-serif;
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+
+/**************** TOASTY *************/
+
+@media only screen and (max-width: 600px) {
+  #toast-container {
     width: 100%;
+    height: 10%;
+  }
+
+  #toast-container div.toast {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    background: #a4a4a4;
+    height: 100%;
+    text-align: left;
+    color: #504f4f;
+    font-weight: bold;
+  }
+
+  #toast-container div.toast svg {
+    fill: #504f4f;
+  }
 }
 
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
+/*-----------------------LOGOWANIE------------------*/
+
+div.logowanie-container div.logo-kreator {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  padding-top: 50px;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
-    }
+div.logowanie-container {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 
-.event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
+div.logo-kreator svg {
+  width: 10vh;
+  height: 10vh;
+  fill: #53d856;
 }
 
-.event.listening {
-    background-color:#333333;
-    display:block;
+div.logo-kreator h1 {
+  color: #bbbdbf;
+  font-size: 5vh;
+  margin: 0;
+  font-family: 'Lato';
 }
 
-.event.received {
-    background-color:#4B946A;
-    display:none;
+div.logo-kreator h1 span {
+  color: #53d856;
 }
 
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+#logowanie-form {
+  margin: 0 auto;
+  width: 80%;
 }
- 
-@-webkit-keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
+
+#logowanie-form h2 {
+  font-size: 18px;
+  color: #bababa;
+  text-align: center;
+  font-weight: normal;
 }
- 
-.blink {
-    animation:fade 3000ms infinite;
-    -webkit-animation:fade 3000ms infinite;
+
+div.logowanie-container div.input-content,
+.steps-container div.input-content {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: row;
+  height: 10vh;
+  margin-bottom: 7px;
+  background: #fbfaff;
+}
+
+#logowanie-form > div:nth-child(2) > input[type="text"],
+#logowanie-form > div:nth-child(3) > input[type="password"] {
+  margin-bottom: 0;
+  color: #9594a1;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  margin-bottom: 3px;
+  line-height: 65px;
+  height: 100%;
+  background: transparent;
+  margin-bottom: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  text-transform: lowercase;
+}
+
+div.logowanie-container div.input-content input:focus,
+div.logowanie-container div.input-content input:active div.logowanie-container div.input-content input:read-only,
+.steps-container div.input-content input:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background: transparent;
+}
+
+div.logowanie-container div.input-content svg,
+.steps-container div.input-content svg {
+  width: 8vh;
+  height: 8vh;
+  fill: #c1c8c1;
+  margin: 0 10px;
+}
+
+div.logowanie-container #logowanie-form p.warning,
+#main-content > div.steps-container > div.steps > div.step.step-2 > p.warning {
+  color: #cb694a;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+div.logowanie-container #logowanie-form p.warning svg,
+#main-content > div.steps-container > div.steps > div.step.step-2 > p.warning svg {
+  fill: #882e13;
+  margin-right: 15px;
+  width: 20px;
+  height: 20px;
+}
+
+#logowanie-form > i {
+  width: 100%;
+}
+
+#logowanie-form > input[type="submit"].zalogujButton,
+#kreator > div.kreator-section.rejestracja-container div.dalej.waves-effect.z-depth-2 {
+  width: 100%;
+  height: 40px;
+  background: #c1e9b3;
+  background: linear-gradient(to right, #53d856, #75e978);
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  border-radius: 28px;
+  box-shadow: 1px 5px 30px #acaeae;
+}
+
+#logowanie-form input[type="submit"]:active,
+#logowanie-form input[type="submit"]:focus {
+  outline: none;
+}
+
+#logowanie-form p:last-child {
+  position: absolute;
+  bottom: 5vh;
+  text-align: center;
+  width: 80%;
+  color: #b2b0bd;
+  font-family: 'Lato', sans-serif;
+  font-size: 4vw;
+}
+
+#logowanie-form p:last-child a {
+  color: #53d856;
+  font-weight: 700;
+  display: block;
 }
 
 
-/* CUSTOMS */
+/************** REJESTRACJA **************/
 
+.rejestracja-container {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+}
+
+.rejestracja-container form#register-form {
+  width: 400%;
+  height: 100%;
+}
+
+.rejestracja-container form#register-form section {
+  float: left;
+  width: 25%;
+  height: 100%;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.steps {
+  margin: 0 auto;
+  margin-bottom: 3vh;
+  text-align: center;
+  color: #b2b2b2;
+  text-transform: uppercase;
+  width: 100px;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.steps > p {
+  margin: 0;
+  font-family: 'Varela Round', sans-serif;
+  color: #b2b2b2;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.steps > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a4a4a4;
+  display: inline-block;
+  margin: 0 3px;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.steps > span.active {
+  background: #54d857;
+}
+
+#register-form > div > section {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 10vw;
+}
+
+#register-form > div > section > img {
+  max-width: 15vh;
+  max-height: 15vh;
+
+}
+
+#register-form > div > section h2 {
+  text-transform: uppercase;
+  color: #53d856;
+  font-size: 2.5vh;
+  margin-bottom: 4vh;
+  font-family: 'Varela Round', sans-serif;
+}
+
+#register-form > div > section div.input-field {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: center;
+  flex-direction: row;
+  height: 10vh;
+  margin-bottom: 7px;
+  background: #fbfaff;
+}
+
+#register-form > div > section div.input-field i {
+  width: 10%;
+  color: #a4a4a4;
+  transition: color .2s ease;
+}
+
+#register-form > div > section input[type="text"],
+#register-form > div > section input[type="email"],
+#register-form > div > section input[type="password"] {
+  margin-bottom: 0;
+  color: #9594a1;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  margin-bottom: 3px;
+  line-height: 65px;
+  height: 100%;
+  background: transparent;
+  margin-bottom: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+#register-form > div > section input[type="text"]:not(#register-form > div > section.step1 > div > input[type="text"]),
+#register-form > div > section input[type="email"],
+#register-form > div > section input[type="password"] {
+  text-transform: lowercase;
+}
+
+#register-form > div > section.step1 > p:nth-of-type(1) {
+  margin: 0;
+  text-align: right;
+  color: #aaa9a9;
+  cursor: pointer;
+}
+
+#register-form > div > section.step2 > p.warning,
+#register-form > div > section.step1 > p.warning {
+  color: #cb694a;
+  text-align: center;
+}
+
+div.dalej {
+  width: 80%;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(to right, #119a8e, #38ee7d);
+  height: 6vh;
+  line-height: 6vh;
+  text-transform: uppercase;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.buttonWrap div.dalej.waves-effect.z-depth-2 {
+  text-transform: uppercase;
+  width: 80%;
+}
+
+.rejestracja-container div.buttonWrap {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 3vh;
+  text-align: center;
+  height: 6vh;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.buttonWrap > div {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#kreator > div.kreator-section.rejestracja-container > div.buttonWrap div:nth-child(2) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 1vh;
+  width: 6vh;
+  display: none;
+}
+
+.circle-clipper {
+  border-color: #54d857 !important;
+}
+
+div.success {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: #fff;
+  text-align: center;
+  line-height: 100%;
+  color: #fff;
+  font-size: 3vh;
+
+  transform: translateX(10000px);
+}
+
+div.success header {
+  background: #53d856;
+  height: 30vh;
+}
+
+div.success header svg {
+  fill: #fff;
+  height: 30vh;
+}
+
+div.success h1 {
+  color: #4a4a4a;
+  font-size: 3vh;
+  font-family: 'Varelia Round', sans-serif;
+}
+
+div.success div.content {
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 10vh;
+}
+
+div.success div.content p {
+  color: #bababa;
+  padding: 5vh 0;
+}
+
+div.success button {
+  width: 100%;
+  height: 6vh;
+  border: none;
+  background: #53d856;
+  border-radius: 28px;
+}
+
+/*siatka typow lokalu*/
+
+div.type-item {
+  width: 80px;
+  height: 80px;
+  background: #fff;
+  margin: 0 auto;
+}
+
+div.type-item input[type="radio"] {
+  display: none;
+}
+
+div.type-item label div.box {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transition: all .3s ease-in-out;
+  will-change: transition;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 1px 1px 10px #bababa;
+  border-radius: 7px;
+}
+
+div.type-item label div.box span {
+  transform: translate(0, 60px);
+  left: 0;
+  right: 0;
+  transition: all 300ms ease;
+  font-size: 2vh;
+  user-select: none;
+  height: 30%;
+}
+
+div.type-item label div.box svg {
+  width: 100%;
+  height: 70%;
+  fill: #999999;
+  transition: all 300ms ease;
+}
+
+div.type-item input[type="radio"]:checked ~ div.box svg {
+  fill: #53d856;
+}
+
+div.type-item input[type="radio"]:checked ~ div.box span {
+  color: #53d856;
+}
+
+/*********** DASHBOARD **************/
+
+#dashboard {
+  z-index: 80;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+}
+
+#dashboard header {
+  width: 100%;
+  height: 37vh;
+  color: #fff;
+  position: relative;
+}
+
+#dashboard header div.header_bg {
+  z-index: 0;
+  background: linear-gradient(to left, #53d856, #69f16c);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: skewY(-6deg);
+  transform-origin: top left;
+}
+
+#dashboard header div.header-top-row {
+  position: absolute;
+  top: 2vh;
+  display: flex;
+  align-items: center;
+  width: 85%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+#dashboard header div.localContKreator {
+  position: absolute;
+  width: 80%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  bottom: -2vh;
+  background: #fbfaff;
+  height: 25vh;
+  color: #000;
+  border-radius: 10px;
+}
+
+#dashboard header div.localContKreator::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  box-sizing: border-box;
+  display: block;
+  box-shadow: 0 0 50px rgba(159, 158, 158, .75);
+  border-radius: 10px;
+  mix-blend-mode: multiply;
+}
+
+#dashboard header div.localContKreator h3 {
+  color: #d6d7da;
+  font-size: 15px;
+  font-family: 'Lato', sans-serif;
+}
+
+#dashboard header div.localContKreator h2.truncate {
+  font-size: 24px;
+  padding: 0 20px;
+  color: #52d355;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+
+#dashboard header div.localContKreator p.local_type {
+  display: flex;
+  padding: 0 20px;
+  text-align: center;
+  align-items: center;
+  color: #cfcece;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+#dashboard header div.localContKreator p.local_type svg {
+  width: 15%;
+  height: 5vh;
+  fill: #cfcece;
+}
+
+#dashboard header div.header-top-row svg:first-child,
+#dashboard header div.header-top-row div.wyloguj {
+  width: 15%;
+}
+
+#dashboard header div.header-top-row div.wyloguj svg {
+  width: 100%;
+}
+
+#dashboard header div.header-top-row p {
+  width: 70%;
+}
+
+#dashboard header svg {
+  fill: #fff;
+  height: 8vh;
+}
+
+#dashboard header p.logged_email {
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+}
+
+div.wyloguj {
+  cursor: pointer;
+}
+
+#dashboard #creator_options {
+  height: 40vh;
+  padding-top: 5vh;
+  margin-top: 5vh;
+}
+
+#dashboard div.dashboard-item {
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #f4f3f8;
+}
+
+#dashboard div.dashboard-item svg {
+  width: 10vh;
+  fill: #979797;
+}
+
+#dashboard div.dashboard-item p {
+  margin: 0 auto;
+  color: #cacacc;
+}
+
+#watchMenu {
+  position: absolute;
+  z-index: 50;
+  bottom: -15%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background: #52d355;
+  border-radius: 50%;
+  box-shadow: 1px 0 10px #828282;
+  width: 9vh;
+  height: 9vh;
+  cursor: pointer;
+}
+
+#dashboard header #watchMenu svg {
+  height: 9vh;
+  fill: #fff;
+}
+
+/****** dashboard podstrony **********/
+
+.dashboard-section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: 100;
+  transform: translateX(1000px);
+}
+
+/*********************************************
+********* --------MENU LOKALU-------**********
+**********************************************/
+
+#lokal-menu {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #fff;
+  display: none;
+}
+
+#lokal-menu.active {
+  display: block;
+}
+
+
+/**************** MEDIA SCREENS *********************/
+
+@media screen and (max-height: 150px) {
+  body {
+    overflow-y: scroll;
+  }
+}

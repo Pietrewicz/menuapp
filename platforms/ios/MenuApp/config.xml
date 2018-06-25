@@ -22,12 +22,20 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="ios-package" value="CDVSplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBar">
+        <param name="ios-package" value="CDVStatusBar" />
+        <param name="onload" value="true" />
+    </feature>
     <name>MenuApp</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        Aplikacja pozwalająca wyświetlać menu restauracji na podstawie geolokalizacji.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="malgorzata@pietrewicz.com.pl" href="http://pietrewicz.com.pl">
+        Małgorzata Pietrewicz
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -37,6 +45,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon density="mdpi" height="57" platform="android" src="res/icon/android/icon.png" width="57" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <preference name="AllowInlineMediaPlayback" value="false" />
@@ -52,4 +61,7 @@
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="StatusBarOverlaysWebView" value="true" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="StatusBarBackgroundColor" value="#cbc693" />
 </widget>
